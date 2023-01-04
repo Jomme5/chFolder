@@ -1,6 +1,7 @@
 # 04/01/2023 - Tijs Cools
 
 from win32com.shell import shell, shellcon
+import pywintypes
 
 BIF_NEWDIALOGSTYLE = 64 #extended dialog
 BIF_UAHINT = 256 #usage hint
