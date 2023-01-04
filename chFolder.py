@@ -7,10 +7,13 @@ BIF_UAHINT = 256 #usage hint
 
 def chooseFolder(startpath=None, extended=False):
     """
-    Typical Windows folderchooser-dialog starting on given basepath(startpath=) or desktop-root if no path is given. 
-    Return value: string containting choosen path or None when canceled by user \n
-    Options: 
-    - extended: resizable dialog with posibility to make a new folder.
+    Typical Windows folderchooser-dialog. \n
+    
+    Options(all are optional): 
+    - hwnd: handler of parentwindow(e.g. Tkinter: root.winfo_id())
+    - startpath: basepath to start from. Desktop-root if no path is given.
+    - extended: (True|False) resizable dialog with posibility to make a new folder.
+    Return value: string containting choosen path or None when canceled by user
     """
 
     flags = shellcon.BIF_STATUSTEXT | shellcon.BIF_RETURNONLYFSDIRS
@@ -22,8 +25,8 @@ def chooseFolder(startpath=None, extended=False):
         startpath=startpath.replace('/','\\')
         desktop = shell.SHGetDesktopFolder()
         cb, pidl, extra = desktop.ParseDisplayName(0, None, startpath)
-
-    this=shell.SHBrowseForFolder(0, # parent HWND
+    p_hwnd=pywintypes.HANDLE(hwnd)
+    this=shell.SHBrowseForFolder(p_hwnd, # parent HWND
                             pidl, # root PIDL.
                             "Default of %s" % startpath ,# title
                             flags, #flags
