@@ -6,7 +6,7 @@ import pywintypes
 BIF_NEWDIALOGSTYLE = 64 #extended dialog
 BIF_UAHINT = 256 #usage hint
 
-def chooseFolder(startpath=None, extended=False):
+def chooseFolder(hwnd=0, startpath=None, extended=False):
     """
     Typical Windows folderchooser-dialog. \n
     
